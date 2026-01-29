@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>मगणी माहिती - खामगांव नगर परिषद</title>
+
+  <!-- Marathi Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Base Styles */
+    body {
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(120deg, #fff8f0, #fff4e0);
+      color: #333;
+      line-height: 1.7;
+      overflow-x: hidden;
+      animation: fadeInBody 1s ease-in;
+    }
+
+    @keyframes fadeInBody {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .content {
+      max-width: 550px;
+      margin: 30px auto;
+      padding: 30px;
+      background-color: #ffffffcc;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      animation: fadeInContent 1.2s ease-in-out;
+    }
+
+    @keyframes fadeInContent {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    h1 {
+      text-align: center;
+      color: #c2410c;
+      font-size: 32px;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 5px rgba(194,65,12,0.3);
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 1px 1px 5px rgba(194,65,12,0.3); }
+      100% { text-shadow: 1px 1px 15px rgba(194,65,12,0.7); }
+    }
+
+    p {
+      text-align: justify;
+      font-size: 17px;
+      margin-bottom: 20px;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    /* Form Styling */
+    form {
+      display: flex;
+      flex-direction: column;
+      margin-top: 30px;
+      animation: fadeInForm 1.5s ease-in-out;
+    }
+
+    @keyframes fadeInForm {
+      from { transform: translateX(-20px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    label {
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    input, textarea {
+      padding: 12px;
+      margin-bottom: 18px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #c2410c;
+      box-shadow: 0 0 10px rgba(194,65,12,0.3);
+      transform: scale(1.02);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    button {
+      padding: 14px;
+      background: linear-gradient(to right, #c2410c, #9a3412);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      animation: buttonFade 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes buttonFade {
+      0% { box-shadow: 0 4px 10px rgba(194,65,12,0.3); }
+      100% { box-shadow: 0 6px 20px rgba(194,65,12,0.5); }
+    }
+
+    button:hover {
+      transform: translateY(-2px) scale(1.02);
+      background: linear-gradient(to right, #9a3412, #c2410c);
+      box-shadow: 0 8px 25px rgba(194,65,12,0.6);
+    }
+
+    .maghani-info {
+      margin-top: 30px;
+      background: #fff3e0;
+      padding: 20px;
+      border-radius: 10px;
+      border-left: 4px solid #c2410c;
+      animation: fadeInInfo 1.5s ease-in-out;
+    }
+
+    @keyframes fadeInInfo {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .maghani-info p {
+      text-align: justify;
+      margin: 8px 0;
+      font-size: 16px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 12px;
+      background-color: #ffffff;
+      border-top: 2px solid #c2410c;
+      margin-top: 30px;
+      font-size: 14px;
+      color: #555;
+      animation: fadeInFooter 2s ease-in-out;
+    }
+
+    @keyframes fadeInFooter {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .content {
+        margin: 15px;
+        padding: 20px;
+      }
+      h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="content">
+    <h1>मगणी माहिती</h1>
+
+    <!-- Optional Maghani Info Section -->
+    
+
+    <!-- Optional Form for Maghani Event Submission -->
+    <form action="#" method="post">
+      
+
+      <label for="name">नाव</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="phone">फोन नंबर</label>
+      <input type="tel" id="phone" name="phone">
+
+      <label for="event-date">सोहळा दिनांक</label>
+      <input type="date" id="event-date" name="event-date" required>
+
+      <label for="message">संदेश / माहिती</label>
+      <textarea id="message" name="message" placeholder="आपली माहिती येथे लिहा..."></textarea>
+
+      <button type="submit">नोंदवा</button>
+    </form>
+
+  </main>
+
+  <footer class="footer">
+    सर्व हक्क राखीव © 2023  चिखली नगर परिषद 
+  </footer>
+
+</body>
+</html>

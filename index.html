@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>चिखली नगर परिषद</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background: url('nature-india.jpg') center/cover no-repeat;
+            padding: 80px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            color: #050505;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(202, 79, 79, 0.04); /* dark overlay */
+            z-index: 0;
+        }
+
+        .header-left, .header-right {
+            width: 120px;
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #fff;
+            z-index: 1;
+        }
+
+        .header-left img, .header-right img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-center {
+            font-size: 36px;
+            font-weight: 700;
+            text-align: center;
+            z-index: 1;
+            position: relative;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            background-color: #904343;
+            padding: 12px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        nav div {
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-weight: 500;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        nav div:hover {
+            background-color: #003366;
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 25px;
+            flex: 1 1 250px;
+            max-width: 300px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s forwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.2s; }
+        .card:nth-child(2) { animation-delay: 0.4s; }
+        .card:nth-child(3) { animation-delay: 0.6s; }
+        .card:nth-child(4) { animation-delay: 0.8s; }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            font-size: 20px;
+            color: #7c2c2c;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 15px;
+            color: #555;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: #974141;
+            color: #fff;
+            text-align: center;
+            padding: 25px 20px;
+            font-weight: 500;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .cards {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .header-center {
+                font-size: 28px;
+            }
+
+            .header-left, .header-right {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <img src="pm image.jpg" alt="प्रधान मंत्री">
+        </div>
+        <div class="header-center">चिखली नगर परिषद</div>
+        <div class="header-right">
+            <img src="deva.jpg" alt="देवता">
+        </div>
+    </header>
+
+    <nav>
+        <div onclick="openPage('Takar')">तक्रार</div>
+        <div onclick="openPage('magni')">मागणी</div>
+        <div onclick="openPage('yojana')">योजना</div>
+        <div onclick="openPage('sampark')">संपर्क</div>
+    </nav>
+
+    <main>
+        <div class="cards">
+            <div class="card">
+                <h3>तक्रार</h3>
+                <p>आपल्या तक्रारी सहजपणे येथे नोंदवा आणि अद्ययावत स्थिती तपासा.</p>
+            </div>
+            <div class="card">
+                <h3>मागणी</h3>
+                <p>विविध मागण्या, परवानगी आणि विनंत्या येथे सबमिट करा.</p>
+            </div>
+            <div class="card">
+                <h3>योजना</h3>
+                <p>नगर परिषद द्वारे चालविल्या जाणार्‍या योजना आणि लाभांची माहिती.</p>
+            </div>
+            <div class="card">
+                <h3>संपर्क</h3>
+                <p>संपर्क माहिती आणि अधिक मदतीसाठी येथे पहा.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        सर्व हक्क राखीव © 2026 चिखली नगर परिषद | 
+        <a href="#">गोपनीयता धोरण</a> | 
+        <a href="#">संपर्क</a>
+    </footer>
+
+    <script>
+        function openPage(pageName) {
+            window.location.href = pageName + ".html";
+        }
+    </script>
+
+</body>
+</html>
