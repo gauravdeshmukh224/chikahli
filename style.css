@@ -11,17 +11,15 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 10px 20px;
     border-bottom: 1px solid black;
-    flex-wrap: wrap; /* mobile साठी */
 }
 
-.header-left,
-.header-right {
+.header-left, .header-right {
     background-color: rgb(73, 72, 64);
     border: 1px solid black;
-    padding: 40px 10px;
-    width: 180px;
+    padding: 50px 15px;
+    width: 200px;
     box-sizing: border-box;
 }
 
@@ -32,12 +30,12 @@ header {
     text-align: center;
 }
 
-/* NAVIGATION */
+/* NAV */
 nav {
     margin: 40px 0;
     display: flex;
     justify-content: center;
-    gap: 30px 60px;
+    gap: 30px 60px; 
     flex-wrap: wrap;
 }
 
@@ -50,7 +48,6 @@ nav div {
     background-color: rgb(225, 144, 106);
 }
 
-/* FOOTER */
 footer {
     background-color: rgb(249, 249, 249);
     padding: 15px 0;
@@ -58,38 +55,50 @@ footer {
     margin-top: 40px;
 }
 
+/* -------- MOBILE VIEW -------- */
 
-/* ---------------- MOBILE VIEW ---------------- */
+@media (max-width:768px){
 
-@media (max-width: 768px) {
-
-    header {
+    header{
         flex-direction: column;
-        gap: 10px;
+        align-items: center;
     }
 
-    .header-left,
-    .header-right {
-        width: 100%;
-        padding: 20px;
+    /* title on top */
+    .header-center{
+        order:1;
+        font-size:28px;
+        margin-bottom:10px;
     }
 
-    .header-center {
-        font-size: 28px;
+    /* images container */
+    .header-left{
+        order:2;
+        width:45%;
+        padding:20px;
     }
 
-    nav {
-        gap: 15px;
-        margin: 20px 0;
+    .header-right{
+        order:3;
+        width:45%;
+        padding:20px;
     }
 
-    nav div {
-        width: 80%;
-        font-size: 20px;
-        padding: 15px;
+    /* left right same row */
+    header{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:10px;
     }
 
-    footer {
-        font-size: 40px;
+    nav div{
+        width:80%;
+        font-size:20px;
+        padding:15px;
+    }
+
+    footer{
+        font-size:40px;
     }
 }
