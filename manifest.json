@@ -2,22 +2,27 @@
   "name": "चिखली नगर परिषद",
   "short_name": "नगर परिषद",
   "description": "नगर परिषद सेवा आणि माहितीचा एक स्थानिक पोर्टल.",
-  "start_url": ".",
-  "scope": ".",
+  "lang": "hi",
+  "start_url": "/index.html",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#f4f6f8",
   "theme_color": "#667eea",
   "orientation": "portrait",
+  "categories": ["government", "utilities"],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "icons/icon-192.svg",
       "sizes": "192x192",
-      "type": "image/svg+xml"
+      "type": "image/svg+xml",
+      "purpose": "any"
     },
     {
       "src": "icons/icon-512.svg",
       "sizes": "512x512",
-      "type": "image/svg+xml"
+      "type": "image/svg+xml",
+      "purpose": "any"
     }
   ]
 }
