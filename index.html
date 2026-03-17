@@ -6,6 +6,7 @@
     <title>चिखली नगर परिषद</title>
     <meta name="theme-color" content="#667eea">
     <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192.svg">
     <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
@@ -624,7 +625,6 @@ footer a:hover {
         const a2hsDialog = document.getElementById('a2hs-dialog');
         const a2hsInstall = document.getElementById('a2hs-install');
         const a2hsClose = document.getElementById('a2hs-close');
-        const isDesktop = !/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
         function isAppInstalled() {
             return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
@@ -633,18 +633,13 @@ footer a:hover {
         const a2hsHint = document.querySelector('.a2hs-dialog__hint');
 
         function updateInstallButtonState() {
-            const canInstall = !!deferredPrompt && !isDesktop && !isAppInstalled();
+            const canInstall = !!deferredPrompt && !isAppInstalled();
 
-            // Always show the button on mobile, but guide the user if install isn't available yet.
-            a2hsInstall.textContent = canInstall ? 'Install' : 'Add to Home screen';
+            // Always show "Install" button
+            a2hsInstall.textContent = 'Install';
+            a2hsInstall.classList.remove('disabled'); // Always enable the button
 
-            if (canInstall) {
-                a2hsHint.textContent = 'Tap to install the app on your home screen.';
-            } else if (isDesktop) {
-                a2hsHint.textContent = 'This app is optimized for mobile devices. Use an Android browser (Chrome/Edge) to install.';
-            } else {
-                a2hsHint.textContent = 'If the install option does not appear, use your browser menu and choose "Add to Home screen".';
-            }
+            a2hsHint.textContent = 'Press the "Install" button to try installing. If it doesn\'t work, use your browser menu and choose "Add to Home screen" (Android) or "Add to Home Screen" (iOS).';
         }
 
         function showInstallPopup() {
@@ -665,7 +660,7 @@ footer a:hover {
         });
 
         window.addEventListener('beforeinstallprompt', (e) => {
-            // Prevent the mini-infobar from appearing on mobile
+            // Prevent the mini-infobar from appearing automatically
             e.preventDefault();
             deferredPrompt = e;
 
