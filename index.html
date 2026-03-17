@@ -150,9 +150,9 @@ main {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.3);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(10, 14, 24, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     z-index: 1100;
     align-items: center;
     justify-content: center;
@@ -169,15 +169,15 @@ main {
     align-items: center;
     justify-content: space-between;
     width: min(720px, 95%);
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 24px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: 22px;
+    padding: 26px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.25);
     color: #ffffff;
     gap: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     animation: slideIn 0.4s ease-out;
     position: relative;
     overflow: hidden;
@@ -186,11 +186,22 @@ main {
 .a2hs-dialog__content::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.12) 100%);
+    mix-blend-mode: overlay;
+    opacity: 0.9;
+    transform: translateY(-8px);
+}
+
+.a2hs-dialog__content::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at top left, rgba(255,255,255,0.25), transparent 55%);
+    opacity: 0.6;
+    transform: translate(-12px, -12px);
 }
 
 .a2hs-dialog__text {
@@ -624,11 +635,10 @@ footer a:hover {
         function updateInstallButtonState() {
             const canInstall = !!deferredPrompt && !isDesktop && !isAppInstalled();
 
-            a2hsInstall.disabled = !canInstall;
-            a2hsInstall.classList.toggle('disabled', !canInstall);
+            // Always show the button on mobile, but guide the user if install isn't available yet.
+            a2hsInstall.textContent = canInstall ? 'Install' : 'Add to Home screen';
 
             if (canInstall) {
-                a2hsInstall.textContent = 'Install';
                 a2hsHint.textContent = 'Tap to install the app on your home screen.';
             } else if (isDesktop) {
                 a2hsHint.textContent = 'This app is optimized for mobile devices. Use an Android browser (Chrome/Edge) to install.';
@@ -668,8 +678,7 @@ footer a:hover {
 
         a2hsInstall.addEventListener('click', async () => {
             if (!deferredPrompt) {
-                a2hsHint.textContent = 'Install is not available in this browser. Use Chrome/Edge on Android or use the browser menu → "Add to Home screen".';
-                updateInstallButtonState();
+                a2hsHint.textContent = 'Install isn\'t supported right now. Open your browser menu and pick "Add to Home screen" (Android) or "Add to Home Screen" (iOS).';
                 return;
             }
 
@@ -693,7 +702,12 @@ footer a:hover {
 
         window.addEventListener('appinstalled', () => {
             console.log('App installed');
-            hideInstallPopup();
+            a2hsHint.textContent = 'Installed! You can now open the app from your home screen.';
+
+            // Keep dialog briefly visible so user sees confirmation
+            setTimeout(() => {
+                hideInstallPopup();
+            }, 2400);
         });
 
         // Register service worker
