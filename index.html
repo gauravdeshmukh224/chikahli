@@ -145,9 +145,243 @@ main {
     }
 }
 
-/* PWA Install Button */
+/* PWA Install Prompt Dialog */
+.a2hs-dialog {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeInOverlay 0.3s ease-out;
+}
+
+.a2hs-dialog.visible {
+    display: flex;
+}
+
+.a2hs-dialog__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: min(720px, 95%);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+    color: #ffffff;
+    gap: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: slideIn 0.4s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.a2hs-dialog__content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+}
+
+.a2hs-dialog__text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.a2hs-dialog__content h2 {
+    display: none;
+}
+
+.a2hs-dialog__content p {
+    display: none;
+}
+
+.a2hs-dialog__header {
+    display: none;
+}
+
+.a2hs-dialog__icon {
+    font-size: 48px;
+    margin-right: 10px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    animation: bounceIn 0.5s ease-out;
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.a2hs-dialog__info {
+    display: none;
+}
+
+.a2hs-dialog__title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.a2hs-dialog__url {
+    display: none;
+}
+
+.a2hs-dialog__actions {
+    display: none;
+}
+
+.a2hs-dialog__buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.a2hs-dialog__subtitle {
+    font-size: 14px;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.4;
+}
+
+.a2hs-dialog__install {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    white-space: nowrap;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.a2hs-dialog__install:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+}
+
+.a2hs-dialog__install.hidden {
+    display: none;
+}
+
+.a2hs-dialog__close {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #ffffff;
+    font-size: 20px;
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    padding: 0;
+    border-radius: 50%;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.a2hs-dialog__close:hover {
+    background: rgba(255,255,255,0.2);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+@keyframes fadeInOverlay {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@media (max-width: 600px) {
+    .a2hs-dialog__content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 16px;
+        width: 90%;
+        padding: 20px;
+        border-radius: 16px;
+    }
+
+    .a2hs-dialog__icon {
+        font-size: 40px;
+        margin-right: 0;
+    }
+
+    .a2hs-dialog__buttons {
+        width: 100%;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .a2hs-dialog__install {
+        padding: 10px 20px;
+        font-size: 15px;
+        flex: 1;
+    }
+
+    .a2hs-dialog__close {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .a2hs-dialog__title {
+        font-size: 20px;
+    }
+
+    .a2hs-dialog__subtitle {
+        font-size: 13px;
+    }
+}
+
 .a2hs-button {
-    /* Hidden by default on desktop; visible (but dimmed) on mobile */
     display: none;
     position: fixed;
     bottom: 20px;
@@ -177,47 +411,6 @@ main {
 
 .a2hs-button:hover {
     transform: translateY(-3px);
-}
-
-.a2hs-dialog {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    z-index: 1100;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-.a2hs-dialog.visible {
-    display: flex;
-}
-
-.a2hs-dialog__content {
-    width: min(420px, 100%);
-    background: #fff;
-    border-radius: 14px;
-    padding: 24px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-    text-align: center;
-}
-
-.a2hs-dialog__content h2 {
-    margin-bottom: 14px;
-    font-size: 22px;
-    color: #222;
-}
-
-.a2hs-dialog__content p {
-    margin-bottom: 20px;
-    color: #444;
-}
-
-.a2hs-dialog__actions {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
 }
 
 .a2hs-button--primary,
@@ -336,11 +529,11 @@ footer a:hover {
 
     <header>
         <div class="header-left">
-            <img src="cm of mah.jpg" alt="प्रधान मंत्री">
+            <img src="modi_q.jpg" alt="प्रधान मंत्री">
         </div>
         <div class="header-center">चिखली नगर परिषद</div>
         <div class="header-right">
-            <img src="deva.jpn" alt="देवता">
+            <img src="devaa_1.jpg" alt="देवता">
         </div>
     </header>
 
@@ -378,19 +571,19 @@ footer a:hover {
         <a href="#">संपर्क</a>
     </footer>
 
-    <!-- PWA Install Button (mobile only) -->
-    <button id="a2hs-button" class="a2hs-button" type="button" aria-hidden="true" title="Install app">
-        +
-    </button>
-
-    <!-- Custom install prompt dialog -->
+    <!-- PWA Install Popup -->
     <div id="a2hs-dialog" class="a2hs-dialog" aria-hidden="true">
         <div class="a2hs-dialog__content">
-            <h2>चिखली नगर परिषद स्थापित करा</h2>
-            <p>या अॅपला तुमच्या होम स्क्रीनवर जोडा आणि जलद प्रवेश मिळवा.</p>
-            <div class="a2hs-dialog__actions">
-                <button id="a2hs-confirm" class="a2hs-button--primary" type="button">होम स्क्रीनवर जोडा</button>
-                <button id="a2hs-cancel" class="a2hs-button--secondary" type="button">नंतर</button>
+            <div class="a2hs-dialog__icon">
+                📱
+            </div>
+            <div class="a2hs-dialog__text">
+                <div class="a2hs-dialog__title">Install App</div>
+                <div class="a2hs-dialog__subtitle">साइट इंस्टॉल करा आणि जलद प्रवेश मिळवा</div>
+            </div>
+            <div class="a2hs-dialog__buttons">
+                <button id="a2hs-install" class="a2hs-dialog__install hidden" type="button">Install</button>
+                <button id="a2hs-close" class="a2hs-dialog__close" type="button">✕</button>
             </div>
         </div>
     </div>
@@ -403,45 +596,53 @@ footer a:hover {
 
         // PWA install prompt helper
         let deferredPrompt;
-        const a2hsButton = document.getElementById('a2hs-button');
         const a2hsDialog = document.getElementById('a2hs-dialog');
-        const a2hsConfirm = document.getElementById('a2hs-confirm');
-        const a2hsCancel = document.getElementById('a2hs-cancel');
+        const a2hsInstall = document.getElementById('a2hs-install');
+        const a2hsClose = document.getElementById('a2hs-close');
+        const isDesktop = !/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+        function isAppInstalled() {
+            return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+        }
+
+        function showInstallPopup() {
+            if (isAppInstalled()) return;
+            a2hsDialog.classList.add('visible');
+            a2hsDialog.setAttribute('aria-hidden', 'false');
+        }
+
+        function hideInstallPopup() {
+            a2hsDialog.classList.remove('visible');
+            a2hsDialog.setAttribute('aria-hidden', 'true');
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // Show popup each time page loads (unless already installed)
+            showInstallPopup();
+            if (isDesktop) {
+                const subtitle = document.querySelector('.a2hs-dialog__subtitle');
+                subtitle.textContent = 'This app is optimized for mobile devices. Access it on your phone for the best experience.';
+                a2hsInstall.style.display = 'none';
+            }
+        });
 
         window.addEventListener('beforeinstallprompt', (e) => {
             // Prevent the mini-infobar from appearing on mobile
             e.preventDefault();
             deferredPrompt = e;
 
-            // Show install button only on mobile screens
-            if (window.matchMedia('(max-width: 768px)').matches) {
-                a2hsButton.classList.add('show');
-                a2hsButton.setAttribute('aria-hidden', 'false');
+            // Show install button when prompt is available
+            if (!isDesktop) {
+                a2hsInstall.classList.remove('hidden');
             }
         });
 
-        a2hsButton.addEventListener('click', () => {
+        a2hsInstall.addEventListener('click', async () => {
             if (!deferredPrompt) {
-                // If install is not yet available, show a short hint.
-                alert('Install is not currently available. Please open this site in Chrome on mobile and ensure PWA install conditions are met.');
+                alert('Install is not available right now. कृपया Chrome (Android) वापरून परत प्रयत्न करा.');
                 return;
             }
 
-            // Show custom dialog
-            a2hsDialog.classList.add('visible');
-            a2hsDialog.setAttribute('aria-hidden', 'false');
-        });
-
-        a2hsCancel.addEventListener('click', () => {
-            a2hsDialog.classList.remove('visible');
-            a2hsDialog.setAttribute('aria-hidden', 'true');
-        });
-
-        a2hsConfirm.addEventListener('click', async () => {
-            a2hsDialog.classList.remove('visible');
-            a2hsDialog.setAttribute('aria-hidden', 'true');
-
-            if (!deferredPrompt) return;
             deferredPrompt.prompt();
             const choiceResult = await deferredPrompt.userChoice;
 
@@ -451,16 +652,19 @@ footer a:hover {
                 console.log('User dismissed the PWA install prompt');
             }
 
-            // Reset prompt
+            // Hide popup immediately after trying to install
+            hideInstallPopup();
+
+            // Reset prompt so it can show again on refresh
             deferredPrompt = null;
-            a2hsButton.classList.remove('show');
-            a2hsButton.setAttribute('aria-hidden', 'true');
+            a2hsInstall.classList.add('hidden');
         });
+
+        a2hsClose.addEventListener('click', hideInstallPopup);
 
         window.addEventListener('appinstalled', () => {
             console.log('App installed');
-            a2hsButton.classList.remove('show');
-            a2hsButton.setAttribute('aria-hidden', 'true');
+            hideInstallPopup();
         });
 
         // Register service worker
