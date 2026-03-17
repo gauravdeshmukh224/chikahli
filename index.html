@@ -269,6 +269,13 @@ main {
     line-height: 1.4;
 }
 
+.a2hs-dialog__hint {
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
 .a2hs-dialog__install {
     padding: 12px 24px;
     border: none;
@@ -282,6 +289,12 @@ main {
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
     white-space: nowrap;
     border: 1px solid rgba(255,255,255,0.2);
+}
+
+.a2hs-dialog__install.disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    box-shadow: none;
 }
 
 .a2hs-dialog__install:hover {
@@ -580,9 +593,10 @@ footer a:hover {
             <div class="a2hs-dialog__text">
                 <div class="a2hs-dialog__title">Install App</div>
                 <div class="a2hs-dialog__subtitle">साइट इंस्टॉल करा आणि जलद प्रवेश मिळवा</div>
+                <div class="a2hs-dialog__hint">Install option appears on supported Android browsers. If it doesn't, use your browser menu and choose "Add to Home screen".</div>
             </div>
             <div class="a2hs-dialog__buttons">
-                <button id="a2hs-install" class="a2hs-dialog__install hidden" type="button">Install</button>
+                <button id="a2hs-install" class="a2hs-dialog__install disabled" type="button">Install</button>
                 <button id="a2hs-close" class="a2hs-dialog__close" type="button">✕</button>
             </div>
         </div>
@@ -605,10 +619,29 @@ footer a:hover {
             return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         }
 
+        const a2hsHint = document.querySelector('.a2hs-dialog__hint');
+
+        function updateInstallButtonState() {
+            const canInstall = !!deferredPrompt && !isDesktop && !isAppInstalled();
+
+            a2hsInstall.disabled = !canInstall;
+            a2hsInstall.classList.toggle('disabled', !canInstall);
+
+            if (canInstall) {
+                a2hsInstall.textContent = 'Install';
+                a2hsHint.textContent = 'Tap to install the app on your home screen.';
+            } else if (isDesktop) {
+                a2hsHint.textContent = 'This app is optimized for mobile devices. Use an Android browser (Chrome/Edge) to install.';
+            } else {
+                a2hsHint.textContent = 'If the install option does not appear, use your browser menu and choose "Add to Home screen".';
+            }
+        }
+
         function showInstallPopup() {
             if (isAppInstalled()) return;
             a2hsDialog.classList.add('visible');
             a2hsDialog.setAttribute('aria-hidden', 'false');
+            updateInstallButtonState();
         }
 
         function hideInstallPopup() {
@@ -619,11 +652,6 @@ footer a:hover {
         window.addEventListener('DOMContentLoaded', () => {
             // Show popup each time page loads (unless already installed)
             showInstallPopup();
-            if (isDesktop) {
-                const subtitle = document.querySelector('.a2hs-dialog__subtitle');
-                subtitle.textContent = 'This app is optimized for mobile devices. Access it on your phone for the best experience.';
-                a2hsInstall.style.display = 'none';
-            }
         });
 
         window.addEventListener('beforeinstallprompt', (e) => {
@@ -631,15 +659,17 @@ footer a:hover {
             e.preventDefault();
             deferredPrompt = e;
 
-            // Show install button when prompt is available
-            if (!isDesktop) {
-                a2hsInstall.classList.remove('hidden');
-            }
+            // Update install button state once prompt is available
+            updateInstallButtonState();
+
+            // Ensure popup is visible (in case it was hidden)
+            showInstallPopup();
         });
 
         a2hsInstall.addEventListener('click', async () => {
             if (!deferredPrompt) {
-                alert('Install is not available right now. कृपया Chrome (Android) वापरून परत प्रयत्न करा.');
+                a2hsHint.textContent = 'Install is not available in this browser. Use Chrome/Edge on Android or use the browser menu → "Add to Home screen".';
+                updateInstallButtonState();
                 return;
             }
 
@@ -647,17 +677,16 @@ footer a:hover {
             const choiceResult = await deferredPrompt.userChoice;
 
             if (choiceResult.outcome === 'accepted') {
+                a2hsHint.textContent = 'Installed! You can now open it from your home screen.';
                 console.log('User accepted the PWA install prompt');
             } else {
+                a2hsHint.textContent = 'Install cancelled. You can try again from the browser menu (Add to Home screen).';
                 console.log('User dismissed the PWA install prompt');
             }
 
-            // Hide popup immediately after trying to install
-            hideInstallPopup();
-
             // Reset prompt so it can show again on refresh
             deferredPrompt = null;
-            a2hsInstall.classList.add('hidden');
+            updateInstallButtonState();
         });
 
         a2hsClose.addEventListener('click', hideInstallPopup);
