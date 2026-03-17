@@ -8,7 +8,8 @@ const URLS_TO_CACHE = [
   'sampark.html',
   'manifest.json',
   'script.js',
-  'image.png'
+  'modi_q.jpg',
+  'devaa_1.jpg'
 ];
 
 self.addEventListener('install', (event) => {
